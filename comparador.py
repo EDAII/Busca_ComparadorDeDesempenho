@@ -1,90 +1,112 @@
-import random
+import time
+import os
+import matplotlib.pyplot as plt
 
-def gerar_dados(tamanho_vetor):
-    """
-    Gera uma lista ordenada de números para servir como base de dados.
-    """
-    print(f"Gerando um vetor ordenado de {tamanho_vetor} elementos...")
-    # Gera uma sequência de números, por exemplo, de 0 a tamanho_vetor - 1
-    vetor = list(range(tamanho_vetor))
-    print("Vetor gerado com sucesso!")
-    return vetor
+def limpar_tela():
+    os.system("cls" if os.name == "nt" else "clear")
+
+def carregar_dados(arquivo):
+    with open(arquivo, "r", encoding="utf-8") as f:
+        dados = [linha.strip().split(",") for linha in f.readlines()]
+    return dados
 
 def busca_sequencial(vetor, chave):
-    """
-    Realiza a busca sequencial em um vetor.
-    """
     comparacoes = 0
-    # Percorre o vetor do início ao fim
     for i in range(len(vetor)):
-        comparacoes += 1 # Conta cada verificação
-        if vetor[i] == chave:
-            return (i, comparacoes) # Chave encontrada, retorna a posição e as comparações
-    
-    return (-1, comparacoes) # Chave não encontrada após percorrer todo o vetor
+        comparacoes += 1
+        if vetor[i][0] == chave:
+            return (vetor[i], comparacoes)
+    return (None, comparacoes)
 
 def busca_binaria(vetor, chave):
-    """
-    Realiza a busca binária em um vetor ordenado.
-    """
     comparacoes = 0
-    inferior = 0
-    superior = len(vetor) - 1
-
+    inferior, superior = 0, len(vetor) - 1
     while inferior <= superior:
         meio = (inferior + superior) // 2
-        comparacoes += 1 # Conta a comparação principal
-
-        if vetor[meio] == chave:
-            return (meio, comparacoes) # Chave encontrada
-        
-        # Compara para decidir qual metade descartar
-        elif chave < vetor[meio]:
-            superior = meio - 1 # Busca na metade inferior
+        comparacoes += 1
+        if vetor[meio][0] == chave:
+            return (vetor[meio], comparacoes)
+        elif chave < vetor[meio][0]:
+            superior = meio - 1
         else:
-            inferior = meio + 1 # Busca na metade superior
-            
-    return (-1, comparacoes) # Chave não encontrada
+            inferior = meio + 1
+    return (None, comparacoes)
+
+def mostrar_resultados(resultado_seq, comp_seq, tempo_seq, resultado_bin, comp_bin, tempo_bin):
+    print("\nRESULTADOS DA BUSCA\n")
+
+    print("[ BUSCA SEQUENCIAL ]")
+    if resultado_seq:
+        print(f"Elemento encontrado: {resultado_seq}")
+    else:
+        print("Elemento não encontrado.")
+    print(f"Comparações: {comp_seq}")
+    print(f"Tempo médio: {tempo_seq:.6f} ms\n")
+
+    print("[ BUSCA BINÁRIA ]")
+    if resultado_bin:
+        print(f"Elemento encontrado: {resultado_bin}")
+    else:
+        print("Elemento não encontrado.")
+    print(f"Comparações: {comp_bin}")
+    print(f"Tempo médio: {tempo_bin:.6f} ms\n")
+
+    print("[ COMPARAÇÃO DE EFICIÊNCIA ]")
+    if comp_seq > comp_bin:
+        print(f"A busca sequencial fez {comp_seq - comp_bin} comparações a mais que a binária.")
+    elif comp_bin > comp_seq:
+        print(f"A busca binária fez {comp_bin - comp_seq} comparações a mais que a sequencial.")
+    else:
+        print("As duas buscas fizeram o mesmo número de comparações.")
+
+def mostrar_grafico(comp_seq, tempo_seq, comp_bin, tempo_bin):
+    plt.figure(figsize=(10, 4))
+
+    plt.subplot(1, 2, 1)
+    plt.bar(['Sequencial', 'Binária'], [comp_seq, comp_bin], color=['orange', 'blue'])
+    plt.title("Número de Comparações")
+    plt.ylabel("Comparações")
+
+    plt.subplot(1, 2, 2)
+    plt.bar(['Sequencial', 'Binária'], [tempo_seq, tempo_bin], color=['orange', 'blue'])
+    plt.title("Tempo Médio (ms)")
+    plt.ylabel("Tempo (ms)")
+
+    plt.tight_layout()
+    plt.show()
 
 if __name__ == "__main__":
-    TAMANHO_VETOR = 20000 # Aumente este valor para ver uma diferença maior!
-    
-    # Gera os dados
-    meu_vetor = gerar_dados(TAMANHO_VETOR)
-    
-    # Pede ao usuário um número para buscar
-    try:
-        chave_busca = int(input("Digite um número para buscar no vetor: "))
-    except ValueError:
-        print("Entrada inválida. Por favor, digite um número inteiro.")
-        exit()
+    limpar_tela()
+    arquivo = "dados.txt"
+    print(f"Carregando dados do arquivo '{arquivo}'...")
+    dados = carregar_dados(arquivo)
+    print(f"Arquivo carregado com {len(dados)} registros.")
 
-    print(f"\nBuscando pelo número {chave_busca} em um vetor de {TAMANHO_VETOR} elementos...\n")
-
-    # 3. Executa e cronometra a Busca Sequencial
-    pos_seq, comp_seq = busca_sequencial(meu_vetor, chave_busca)
-    
-    print("--- Resultado da Busca Sequencial ---")
-    if pos_seq != -1:
-        print(f"Elemento encontrado na posição: {pos_seq}")
+    escolha = input("Deseja ordenar os dados antes da busca? (s/n): ").strip().lower()
+    if escolha == 's':
+        inicio = time.perf_counter()
+        dados.sort(key=lambda x: x[0])
+        fim = time.perf_counter()
+        print(f"Dados ordenados. Tempo para ordenação: {(fim - inicio) * 1000:.4f} ms")
     else:
-        print("Elemento não encontrado.")
-    print(f"Número de comparações: {comp_seq}")
+        print("Dados mantidos bagunçados. A busca binária pode não funcionar corretamente.")
 
-    # 4. Executa e cronometra a Busca Binária
-    pos_bin, comp_bin = busca_binaria(meu_vetor, chave_busca)
-    
-    print("\n--- Resultado da Busca Binária ---")
-    if pos_bin != -1:
-        print(f"Elemento encontrado na posição: {pos_bin}")
-    else:
-        print("Elemento não encontrado.")
-    print(f"Número de comparações: {comp_bin}")
+    chave = input("\nDigite o nome para buscar: ")
+    limpar_tela()  # limpa a tela após digitar o nome
 
-    # 5. Conclusão
-    print("\n--- Conclusão ---")
-    if comp_bin > 0 and comp_seq > comp_bin:
-        diferenca = round(comp_seq / comp_bin)
-        print(f"A Busca Binária foi aproximadamente {diferenca}x mais rápida que a Busca Sequencial.")
-    else:
-        print("Não foi possível calcular a diferença de performance.")
+    REPETICOES = 1000
+
+    inicio = time.perf_counter()
+    for _ in range(REPETICOES):
+        resultado_seq, comp_seq = busca_sequencial(dados, chave)
+    fim = time.perf_counter()
+    tempo_seq = (fim - inicio) / REPETICOES * 1000
+
+    inicio = time.perf_counter()
+    for _ in range(REPETICOES):
+        resultado_bin, comp_bin = busca_binaria(dados, chave)
+    fim = time.perf_counter()
+    tempo_bin = (fim - inicio) / REPETICOES * 1000
+
+    mostrar_resultados(resultado_seq, comp_seq, tempo_seq, resultado_bin, comp_bin, tempo_bin)
+    mostrar_grafico(comp_seq, tempo_seq, comp_bin, tempo_bin)
