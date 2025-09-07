@@ -1,36 +1,100 @@
-# Repositório Template
-Repositório de Template para os projetos da disciplina 
-```
-Nome do Repositório (Apague este tópico)
-  O nome do repositório deve seguir o padrão <TemaProjeto>_<Nome Projeto>.
-  O nome do projeto deve representar o que foi implementado no mesmo (Ex:
-  Game xyz, Implementações Otimizadas de Algoritmos, Aplicativo xpto)
+# 🔍 Estrutura de Dados - Ordenação e Busca
 
-Os temas de projeto são:  
+**Conteúdo da Disciplina:**
  - Busca - Algoritmos de busca  
  - Ord_quad - Algoritmos de ordenação O(n²)  
  - Ord_nlogn - Algoritmos de ordenação O(n*log(n))  
  - Arv - Algoritmos de manipulação de Árvores  
- - Grafo - Algoritmos de manipulação de Grafos  
- 
- Ex: Busca_ConcorrenteDaGoogle
-```
-## Alunos  
-| Matrícula | Nome |  
-|-----------------------|---------------------|  
-| xx/xxxxxxx | xxxx xxxx xxxxx |  
-| 211063111 | Gustavo Alves de Souza |  
-## Descrição do projeto
-Aqui você deve dizer o objetivo deste projeto e o que realmente foi feito neste repositório.
-## Guia de instalação
-Aqui devem estar descritas as dependências do projeto (versões de linguagens e ferramentas) e as instruções necessárias para executar o projeto. 
-### Dependências do projeto
-### Como executar o projeto
-## Capturas de tela
-Neste tópico você deve adicionar imagens do funcionamento do projeto.  
- - As imagens devem ser salvas no repositório.
- - Imagens salvas em domínios eternos tendem a ficar indisponíveis e devem ser evitadas.   
-## Conclusões
-Aqui você diz se o algoritmo utilizado foi útil, se tem limitações, etc.
-## Referências
-Caso tenha utilizado algum agoritmo como base, citar o mesmo devidamente para  evitar quaisquer denuncias de plágio.
+ - Grafo - Algoritmos de manipulação de Grafos
+
+## 👨‍🏫 Alunos
+
+| Matrícula   | Aluno           |
+|-------------|-----------------|
+| 202045482   | [Genilson Silva](https://github.com/GenilsonJrs)   |
+| 211063111   | [Gustavo Alves](https://github.com/gustaallves)   |
+
+---
+
+## 📋 Sobre
+
+Este trabalho tem como objetivo explorar e comparar **algoritmos de busca** de forma interativa e visual, reforçando conceitos teóricos de estruturas de dados e complexidade de algoritmos.
+
+Implementamos **busca sequencial** e **busca binária** em um conjunto de dados, permitindo ao usuário escolher se deseja ordenar os dados ou mantê-los desordenados. Além disso, o programa oferece:
+
+- Visualização passo a passo do funcionamento de cada busca, mostrando como os elementos do vetor são percorridos e destacados.
+
+- Cálculo do número de comparações e tempo médio de execução para cada algoritmo.
+
+- Gráficos comparativos de desempenho entre as duas buscas.
+
+O objetivo é fornecer uma experiência prática e didática, permitindo compreender de maneira visual e quantitativa como diferentes estratégias de busca se comportam sobre o mesmo conjunto de dados.
+
+---
+
+## 🖼️ Screenshots
+
+<p align="center">Figura 1 - ...</p>
+
+<p align="center">
+  <img src="" alt="..." width="500"/>
+</p>
+
+---
+
+### 🎥 Vídeo de Apresentação
+
+Neste vídeo, apresentamos o trabalho desenvolvido, abordando os principais pontos desenvolvidos ao longo do projeto.
+
+[Assista no Youtube]()
+
+---
+
+### ✅ Pré-requisitos
+
+- Sistema operacional: **Windows ou Linux**
+- Python 3.x instalado
+- Terminal compatível com comandos do sistema
+- Bibliotecas Python: **matplotli**
+
+---
+
+## ⚙️ Instalação e Execução
+
+**Linguagem:** Python
+**Framework:** Nenhum (Utiliza apenas bibliotecas padrão e matplotli)
+
+1.  **Clone o repositório:**
+
+    ```bash
+    https://github.com/EDAII/Busca_ComparadorDeDesempenho.git
+    
+    ```
+
+2.  **Entre na pasta do projeto:**
+
+    ```bash
+    cd BUSCA_COMPARADORDESEMPENHO
+    ```
+
+3.  **Execute o programa (Windows ou Linux):**
+
+    ```bash
+    python main.py
+    ```    
+
+---
+
+## ▶️ Uso
+
+Após executar o programa, siga as instruções no terminal para definir a ordenação, dado buscado e visualização posterior.
+
+---
+
+## 🧠 Outros
+
+- O projeto foi planejado para demonstrar visualmente o funcionamento de algoritmos de busca (**sequencial** e **binária**), permitindo compreender passo a passo como os elementos do vetor são percorridos.
+- Permite comparar de forma prática eficiência e **desempenho** entre os dois algoritmos, medindo tempo médio e número de comparações.
+- Os gráficos comparativos facilitam a análise do comportamento dos algoritmos em diferentes cenários.
+- O código é implementado em **Python**, utilizando apenas bibliotecas padrão e **matplotlib**, garantindo leveza e simplicidade.
+- A clareza da saída no terminal foi priorizada para facilitar a compreensão do agendamento e dos resultados.
