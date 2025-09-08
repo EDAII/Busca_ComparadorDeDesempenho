@@ -44,14 +44,14 @@ O objetivo é fornecer uma experiência prática e didática, permitindo compree
 
 Neste vídeo, apresentamos o trabalho desenvolvido, abordando os principais pontos desenvolvidos ao longo do projeto.
 
-[Assista no Youtube]()
+[Assista no Youtube](https://youtu.be/sFjK99AYxXY)
 
 ---
 
 ### ✅ Pré-requisitos
 
 - Sistema operacional: **Windows ou Linux**
-- Python 3.x instalado
+- Python 3.0 instalado
 - Terminal compatível com comandos do sistema
 - Bibliotecas Python: **matplotlib**
 
