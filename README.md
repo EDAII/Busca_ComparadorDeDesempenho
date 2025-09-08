@@ -32,10 +32,16 @@ O objetivo é fornecer uma experiência prática e didática, permitindo compree
 
 ## 🖼️ Screenshots
 
-<p align="center">Figura 1 - ...</p>
+<p align="center">Figura 1 - Inserção de Dados e Resultados</p>
 
 <p align="center">
-  <img src="" alt="..." width="500"/>
+  <img src="./Imagens/t1eda2i2.png" alt="Tela Inicial" width="500"/>
+</p>
+
+<p align="center">Figura 2 - Gráfico Comparativo</p>
+
+<p align="center">
+  <img src="./Imagens/t1eda2i1.png" alt="Gráfico Comparativo" width="500"/>
 </p>
 
 ---
