@@ -32,10 +32,10 @@ def busca_binaria(vetor, chave):
             inferior = meio + 1
     return (None, comparacoes)
 
-def mostrar_resultados(resultado_seq, comp_seq, tempo_seq, resultado_bin, comp_bin, tempo_bin):
-    print("\nRESULTADOS DA BUSCA\n")
+def mostrar_resultados(resultado_seq, comp_seq, tempo_seq, resultado_bin, comp_bin, tempo_bin_total):
+    print("\nRESULTADOS DA BUSCA (COMPARAÇÃO JUSTA)\n")
 
-    print("[ BUSCA SEQUENCIAL ]")
+    print("[ CENÁRIO 1: BUSCA SEQUENCIAL (em dados desordenados) ]")
     if resultado_seq:
         print(f"Elemento encontrado: {resultado_seq}")
     else:
@@ -43,70 +43,67 @@ def mostrar_resultados(resultado_seq, comp_seq, tempo_seq, resultado_bin, comp_b
     print(f"Comparações: {comp_seq}")
     print(f"Tempo médio: {tempo_seq:.6f} ms\n")
 
-    print("[ BUSCA BINÁRIA ]")
+    print("[ CENÁRIO 2: BUSCA BINÁRIA (incluindo tempo para ordenar) ]")
     if resultado_bin:
         print(f"Elemento encontrado: {resultado_bin}")
     else:
         print("Elemento não encontrado.")
-    print(f"Comparações: {comp_bin}")
-    print(f"Tempo médio: {tempo_bin:.6f} ms\n")
+    print(f"Comparações da busca: {comp_bin}")
+    print(f"Tempo médio (Ordenação + Busca): {tempo_bin_total:.6f} ms\n")
 
-    print("[ COMPARAÇÃO DE EFICIÊNCIA ]")
-    if comp_seq > comp_bin:
-        print(f"A busca sequencial fez {comp_seq - comp_bin} comparações a mais que a binária.")
-    elif comp_bin > comp_seq:
-        print(f"A busca binária fez {comp_bin - comp_seq} comparações a mais que a sequencial.")
-    else:
-        print("As duas buscas fizeram o mesmo número de comparações.")
 
-def mostrar_grafico(comp_seq, tempo_seq, comp_bin, tempo_bin):
-    plt.figure(figsize=(10, 4))
+def mostrar_grafico(comp_seq, tempo_seq, comp_bin, tempo_bin_total):
+    plt.figure(figsize=(12, 5))
+    plt.suptitle("Comparativo de Desempenho (Cenário de Busca Única)", fontsize=16)
 
     plt.subplot(1, 2, 1)
     plt.bar(['Sequencial', 'Binária'], [comp_seq, comp_bin], color=['orange', 'blue'])
-    plt.title("Número de Comparações")
+    plt.title("Número de Comparações (Apenas a Busca)")
     plt.ylabel("Comparações")
 
     plt.subplot(1, 2, 2)
-    plt.bar(['Sequencial', 'Binária'], [tempo_seq, tempo_bin], color=['orange', 'blue'])
-    plt.title("Tempo Médio (ms)")
+    labels = ['Sequencial', 'Binária + Ordenação']
+    tempos = [tempo_seq, tempo_bin_total]
+    plt.bar(labels, tempos, color=['orange', 'blue'])
+    plt.title("Tempo de Execução Total")
     plt.ylabel("Tempo (ms)")
 
-    plt.tight_layout()
+    plt.tight_layout(rect=[0, 0, 1, 0.95])
     plt.show()
 
 if __name__ == "__main__":
     limpar_tela()
-    arquivo = "dados.txt"
+    arquivo = "dados.txt"  # Sugestão: usar o arquivo com nomes únicos
     print(f"Carregando dados do arquivo '{arquivo}'...")
     dados = carregar_dados(arquivo)
+    if not dados:
+        print("Arquivo não encontrado ou vazio. Encerrando.")
+        exit()
     print(f"Arquivo carregado com {len(dados)} registros.")
 
-    escolha = input("Deseja ordenar os dados antes da busca? (s/n): ").strip().lower()
-    if escolha == 's':
-        inicio = time.perf_counter()
-        dados.sort(key=lambda x: x[0])
-        fim = time.perf_counter()
-        print(f"Dados ordenados. Tempo para ordenação: {(fim - inicio) * 1000:.4f} ms")
-    else:
-        print("Dados mantidos bagunçados. A busca binária pode não funcionar corretamente.")
-
     chave = input("\nDigite o nome para buscar: ")
-    limpar_tela()  # limpa a tela após digitar o nome
+    limpar_tela()
 
-    REPETICOES = 1000
+    REPETICOES = 100
 
+    # --- Medição da Busca Sequencial (em dados desordenados) ---
+    print("Calculando tempo da Busca Sequencial...")
     inicio = time.perf_counter()
     for _ in range(REPETICOES):
         resultado_seq, comp_seq = busca_sequencial(dados, chave)
     fim = time.perf_counter()
     tempo_seq = (fim - inicio) / REPETICOES * 1000
 
+    # --- Medição da Busca Binária + Custo de Ordenação ---
+    print("Calculando tempo da Busca Binária + Ordenação...")
     inicio = time.perf_counter()
     for _ in range(REPETICOES):
-        resultado_bin, comp_bin = busca_binaria(dados, chave)
+        # Para cada repetição, criamos uma cópia e a ordenamos
+        dados_para_ordenar = list(dados)
+        dados_para_ordenar.sort(key=lambda x: x[0])
+        resultado_bin, comp_bin = busca_binaria(dados_para_ordenar, chave)
     fim = time.perf_counter()
-    tempo_bin = (fim - inicio) / REPETICOES * 1000
+    tempo_bin_com_ordenacao = (fim - inicio) / REPETICOES * 1000
 
-    mostrar_resultados(resultado_seq, comp_seq, tempo_seq, resultado_bin, comp_bin, tempo_bin)
-    mostrar_grafico(comp_seq, tempo_seq, comp_bin, tempo_bin)
+    mostrar_resultados(resultado_seq, comp_seq, tempo_seq, resultado_bin, comp_bin, tempo_bin_com_ordenacao)
+    mostrar_grafico(comp_seq, tempo_seq, comp_bin, tempo_bin_com_ordenacao)
