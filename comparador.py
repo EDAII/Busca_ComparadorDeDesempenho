@@ -73,7 +73,7 @@ def mostrar_grafico(comp_seq, tempo_seq, comp_bin, tempo_bin_total):
 
 if __name__ == "__main__":
     limpar_tela()
-    arquivo = "dados.txt"  # Sugestão: usar o arquivo com nomes únicos
+    arquivo = "dados.txt" 
     print(f"Carregando dados do arquivo '{arquivo}'...")
     dados = carregar_dados(arquivo)
     if not dados:
@@ -86,7 +86,6 @@ if __name__ == "__main__":
 
     REPETICOES = 100
 
-    # --- Medição da Busca Sequencial (em dados desordenados) ---
     print("Calculando tempo da Busca Sequencial...")
     inicio = time.perf_counter()
     for _ in range(REPETICOES):
@@ -94,11 +93,9 @@ if __name__ == "__main__":
     fim = time.perf_counter()
     tempo_seq = (fim - inicio) / REPETICOES * 1000
 
-    # --- Medição da Busca Binária + Custo de Ordenação ---
     print("Calculando tempo da Busca Binária + Ordenação...")
     inicio = time.perf_counter()
     for _ in range(REPETICOES):
-        # Para cada repetição, criamos uma cópia e a ordenamos
         dados_para_ordenar = list(dados)
         dados_para_ordenar.sort(key=lambda x: x[0])
         resultado_bin, comp_bin = busca_binaria(dados_para_ordenar, chave)
