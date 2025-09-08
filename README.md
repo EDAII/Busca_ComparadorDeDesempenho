@@ -22,8 +22,6 @@ Este trabalho tem como objetivo explorar e comparar **algoritmos de busca** de f
 
 Implementamos **busca sequencial** e **busca binária** em um conjunto de dados, permitindo ao usuário escolher se deseja ordenar os dados ou mantê-los desordenados. Além disso, o programa oferece:
 
-- Visualização passo a passo do funcionamento de cada busca, mostrando como os elementos do vetor são percorridos e destacados.
-
 - Cálculo do número de comparações e tempo médio de execução para cada algoritmo.
 
 - Gráficos comparativos de desempenho entre as duas buscas.
@@ -55,14 +53,14 @@ Neste vídeo, apresentamos o trabalho desenvolvido, abordando os principais pont
 - Sistema operacional: **Windows ou Linux**
 - Python 3.x instalado
 - Terminal compatível com comandos do sistema
-- Bibliotecas Python: **matplotli**
+- Bibliotecas Python: **matplotlib**
 
 ---
 
 ## ⚙️ Instalação e Execução
 
 **Linguagem:** Python
-**Framework:** Nenhum (Utiliza apenas bibliotecas padrão e matplotli)
+**Framework:** Nenhum (Utiliza apenas bibliotecas padrão e matplotlib)
 
 1.  **Clone o repositório:**
 
@@ -80,7 +78,7 @@ Neste vídeo, apresentamos o trabalho desenvolvido, abordando os principais pont
 3.  **Execute o programa (Windows ou Linux):**
 
     ```bash
-    python main.py
+    python comparador.py
     ```    
 
 ---
